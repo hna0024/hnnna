@@ -1,0 +1,424 @@
+
+<!doctype html>
+<html lang="kr">
+
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+        integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+
+    <!-- Font Awesome CSS (아이콘 사용을 위한 라이브러리) -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+        
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
+        integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+        crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
+        integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+        crossorigin="anonymous"></script>
+
+    <title>VFM | 가상피팅쇼핑몰</title>
+
+    <style>
+
+        .category-items {
+            display: flex;
+            flex-wrap: wrap; /* 줄바꿈 가능 */
+            justify-content: center; /* 중앙 정렬 */
+            gap: 20px; /* 이미지 간 간격 */
+            display: none;
+        }        
+
+        .category-items .col-3 {
+            flex: 1 1 500px; /* 최소 200px 크기 */
+            max-width: 500px; /* 최대 크기 */
+            text-align: center;
+        }
+
+        .category-items img {
+            width: 100%; /* 가로 너비 맞춤 */
+            height: auto;
+            border-radius: 10px; /* 둥근 모서리 효과 */
+        }
+
+        .search-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-left: 30px;
+        }
+        
+        /* VFM 로고 스타일 설정 */
+        .vfm-logo {
+            font-family: 'Arial', sans-serif;
+            font-weight: bold;
+            
+        }
+
+        /* 아이콘 중앙 배치 */
+       .navbar-center {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            width: 100%;
+            padding: 10px;
+        } 
+        
+        .navbar {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        /* 아이콘 고르게 배치하기 위한 스타일 설정 */
+        .icon-container {
+            display: flex;
+            justify-content: flex-end; /* 아이콘 오른쪽 정렬렬 */
+            width: 200%;/* 부모 컨테이너 너비 설정 */
+            gap: 20px;
+        }
+
+        .nav-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .nav-text {
+            font-size: 10px;
+            margin-top: 10px;
+        }
+
+        /* 아이콘 스타일 */
+        .nav-icon {
+            font-size: 2rem;
+            cursor: pointer;
+            transition: transform 0.3s ease;
+        }
+
+         /* .아이콘 클릭 시 바운드 에니메이션 */
+         @keyframes bounce {
+            0% {transform: translateY(0);}
+            30% {transform: translateY(-10px);}
+            50% {transform: translateY(5px);}
+            70% {transform: translateY(-5px);}
+            100% {transform: translateY(0);}
+        }
+        
+        .bounced {
+            animation: bounce 0.5s ease;
+        }
+
+        .btn-primary {
+            background-color: skyblue;
+            color: white;
+            border-color: skyblue;
+        }
+        
+        /* 검색창 가로 길이 설정 */
+        .search-input {
+            width: 300px;
+        }
+
+        .serch-btn {
+            background-color: skyblue;
+        }
+
+        /* 검색창 input과 버튼이 같은 라인에 위치하도록 정렬 */
+        .form-inline input,
+        .form-inline button {
+            height: 38px; /* 높이 동일하게 맞추기 */
+        }
+
+        .search-container input,
+        .search-container button {
+            height: 38px;
+            margin-right: 10px; /* 버튼과 input 간 간격 조정 */
+        }
+
+        .wrap {
+            width: 100rem;
+            margin: auto;
+        }
+       
+    </style>
+
+</head>
+
+<body>
+    
+    <!--로고와 아이콘 사이의 중앙 배치 영역-->
+    <div class="navbar-center">
+        <nav class="navbar navbar-expand-lg navbar-light bg-light">
+            <a class="navbar-brand" href="#" onclick="location.reload();">
+                <h1 class="vfm-logo">VFM</h1>
+            </a>
+            
+            <!--검색창-->
+        <form class="search-container">
+            <input class="form-control mr-sm-2 search-input" type="search" placeholder="Search" aria-label="Search">
+            <button class="btn search-btn my-2 my-sm-0" type="submit">검색</button>
+        </form>
+        </nav>
+
+        <!--로고 옆 아이콘 및 텍스트-->
+          <div class="icon-container">
+            <div class="nav-item" id="like-icon">
+                <i class="fas fa-thumbs-up nav-icon"></i>
+                <span class="nav-text">좋아요</span>
+            </div>
+            <div class="nav-item" id="cart-icon">
+                <i class="fas fa-shopping-cart nav-icon"></i>
+                <span class="nav-text">장바구니</span>
+            </div>
+            <div class="nav-item" id="best-icon">
+                <i class="fas fa-star nav-icon"></i>
+                <span class="nav-text">베스트</span>
+            </div>
+        </div>
+    </div>
+    <hr class="mx-2 h-2 translate-y-px rounded-sm border-r dark:border-gray-600 xl:mx-2.5">
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // 아이콘 요소 가져오기
+            const likeIcon = document.getElementById('like-icon');
+            const cartIcon = document.getElementById('cart-icon');
+            const bestIcon = document.getElementById('best-icon');
+            
+            // 클릭 시 바운스 애니메이션 추가
+            function addBounceAnimation(event) {
+                const icon = event.target.closest('.nav-icon');
+                if (icon) {
+                    // 이전 애니메이션이 있다면 제거
+                    icon.classList.remove('bounced');
+                    // 애니메이션 추가
+                    setTimeout(() => {
+                        icon.classList.add('bounced');
+                    }, 10); // 잠시 후 클래스 추가하여 애니메이션 효과 적용
+                }
+            }
+            
+            // 아이콘 클릭 이벤트 리스너 추가
+            likeIcon.addEventListener('click', addBounceAnimation);
+            cartIcon.addEventListener('click', addBounceAnimation);
+            bestIcon.addEventListener('click', addBounceAnimation);
+        });
+    </script>
+
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <a class="navbar-brand" href="#">홈</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav">
+                <li class="nav-item active">
+                    <a class="nav-link" href="#">소개</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#">연락처</a>
+                </li>
+            </ul>
+        </div>
+    </nav>
+
+    <p></p>
+        <div class="jumbotron">
+        <h1 class="vfm-logo">Virtual Fitting Room </h1>
+        <p2 class="lead">가상으로 사용자가 원하는 옷을 피팅할 수 있는 쇼핑몰</p2>
+        <hr class="my-4">
+        <p>원하는 의상의 카테고리를 선택해보세요.</p>
+        <p class="lead">
+            <button class="btn btn-primary btn-lg category-btn" data-category="outer">아우터</button>
+            <button class="btn btn-primary btn-lg category-btn" data-category="top">상의</button>
+            <button class="btn btn-primary btn-lg category-btn" data-category="shirts">셔츠/블라우스</button>
+            <button class="btn btn-primary btn-lg category-btn" data-category="training">트레이닝</button>
+            <button class="btn btn-primary btn-lg category-btn" data-category="dress">원피스</button>
+            <button class="btn btn-primary btn-lg category-btn" data-category="skirt">스커트</button>
+            <button class="btn btn-primary btn-lg category-btn" data-category="pants">팬츠</button>
+        </p>
+      </div>
+
+      <!--의류 목록-->
+      <div class="container">
+        <div id="outer" class="row category-items">
+            <div class="col-3"><img src="https://cafe24.poxo.com/ec01/trillion2022/HOvhRhvOk+Cp2KY4JuusAi9kXO56vCuQY5Seb7cB6Gl9JzyG3TULHm4qWcJtVngXR2KhIxr4ehOSAeNpQfTebw==/_/web/product/medium/202204/4e172029bf64b3d16162222969f60459.jpg" class="img-fluid"><p>아우터 1</p></div>
+            <div class="col-3"><img src="https://covernat.co.kr/web/product/medium/202304/5201b18389611b70354798537a904ff5.jpg" class="img-fluid"><p>아우터 2</p></div>
+            <div class="col-3"><img src="https://ecimg.cafe24img.com/pg843b33557086025/palettelook/web/product/medium/20240905/80440fcf2a2b5c4b390a989019ea9eb1.jpg" class="img-fluid"><p>아우터 3</p></div>
+        </div>
+
+        <div id="top" class="row category-items">
+            <div class="col-3"><img src="https://img.sonyunara.com/files/goods/420901/1_65c3210ef0ff3_1.png.webp" class="img-fluid"><p>상의 1</p></div>
+            <div class="col-3"><img src="https://img.sonyunara.com/files/goods/496355/1_65c457d5dbdc2_2.png.webp" class="img-fluid"><p>상의 1</p></div>
+            <div class="col-3"><img src="https://img.sonyunara.com/files/goods/163254/1640826414_4.jpg.webp" class="img-fluid"><p>상의 2</p></div>
+        </div>
+
+        <div id="shirts" class="row category-items">
+            <div class="col-3"><img src="https://img.sonyunara.com/files/goods/68738/1_65c1ea3522da6_1.png.webp" class="img-fluid"><p>셔츠/블라우스 1</p></div>
+            <div class="col-3"><img src="https://img.sonyunara.com/files/goods/214693/1_65df21a837801_1.png.webp" class="img-fluid"><p>셔츠/블라우스 2</p></div>
+        </div>
+
+        <div id="training" class="row category-items">
+            <div class="col-3"><img src="https://img.sonyunara.com/files/goods/69410/1_65c1ea436735a_0.png.webp" class="img-fluid"><p>트레이닝 1</p></div>
+            <div class="col-3"><img src="https://img.sonyunara.com/files/goods/501079/1_65c474549b922_3.png.webp" class="img-fluid"><p>트레이닝 2</p></div>
+        </div>
+
+        <div id="dress" class="row category-items">
+            <div class="col-3"><img src="https://img.sonyunara.com/files/goods/123091/1_65c1f03324ca9_0.png.webp" class="img-fluid"><p>원피스 1</p></div>
+            <div class="col-3"><img src="https://img.sonyunara.com/files/goods/162828/1640764928_2.jpg.webp" class="img-fluid"><p>원피스 2</p></div>
+        </div>
+
+        <div id="skirt" class="row category-items">
+            <div class="col-3"><img src="https://img.sonyunara.com/files/goods/180805/1_65c1f8ee54d8a_3.png.webp" class="img-fluid"><p>스커트 1</p></div>
+            <div class="col-3"><img src="https://img.sonyunara.com/files/goods/72938/1_661cc322889d0_0.png.webp" class="img-fluid"><p>스커트 2</p></div>
+        </div>
+
+        <div id="pants" class="row category-items">
+            <div class="col-3"><img src="https://img.sonyunara.com/files/goods/153397/1_65c1f39fb1f1e_0.png.webp" class="img-fluid"><p>팬츠 1</p></div>
+            <div class="col-3"><img src="https://img.sonyunara.com/files/goods/346876/1_65c2e35411b71_1.png.webp" class="img-fluid"><p>팬츠 2</p></div>
+        </div>
+    </div>
+
+    <script>
+        $(document).ready(function () {
+            $(".category-btn").click(function () {
+                var category = $(this).data("category"); // 클릭한 버튼의 카테고리 가져오기
+                
+                $(".category-items").slideUp(); // 모든 항목 숨기기
+                $("#" + category).slideDown().css("display", "flex"); // 해당 카테고리 항목만 표시
+            });
+        });
+    </script>
+
+      <div class="wrap">
+          <h4>VFM 고객님을 위한 옷장</h4>
+        <div class="row">
+    <div class="col-2">
+        <img class="card-img-top" src="https://img.sonyunara.com/files/goods/59139/1_65c1e9bfadfb3_1.png.webp" alt="Card image cap">
+        <div class="card-body">
+            <h5 class="card-title">Card title</h5>
+            <p class="card-text">This </p>
+        </div>
+    </div>
+    <div class="col-2">
+        <img class="card-img-top" src="https://img.sonyunara.com/files/goods/321416/1713238633_5.gif.webp" alt="Card image cap">
+        <div class="card-body">
+            <h5 class="card-title">Card title</h5>
+            <p class="card-text">This</p>
+        </div>
+    </div>
+    <div class="col-2">
+        <img class="card-img-top" src="https://img.sonyunara.com/files/goods/605460/1719814189_5.jpg.webp" alt="Card image cap">
+        <div class="card-body">
+            <h5 class="card-title">Card title</h5>
+            <p class="card-text">Thi</p>
+        </div>
+    </div>
+    <div class="col-2">
+        <img class="card-img-top" src="https://img.sonyunara.com/files/goods/605450/1719910366_5.jpg.webp" alt="Card image cap">
+        <div class="card-body">
+            <h5 class="card-title">Card title</h5>
+            <p class="card-text">Th</p>
+        </div>
+    </div>
+    <div class="col-2">
+        <img class="card-img-top" src="https://img.sonyunara.com/files/goods/592918/1717486714_5.jpg.webp" alt="Card image cap">
+        <div class="card-body">
+            <h5 class="card-title">Card title</h5>
+            <p class="card-text">Tff</p>
+        </div>
+    </div>
+</div>
+</div>
+
+<div class="wrap">
+    <div class="row">
+        <div class="col-2">
+            <img class="card-img-top" src="data:image/webp;base64,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" alt="Card image cap">
+            <div class="card-body">
+                <h5 class="card-title">Card titl</h5>
+                <p class="card-text">This</p>
+            </div>
+        </div>
+        <div class="col-2">
+            <img class="card-img-top" src="https://encrypted-tbn2.gstatic.com/shopping?q=tbn:ANd9GcTwhXBA4Nzh8nN1yLU7ETuQDIWJunzYD4RLnNYgn7m_zGp3Ucz7EUvtCJZc8hbsR2sD8qbQcgaHMZx0fM1VAFReID7HdlWpQnIxZ6V-V6ZEZmhjaXrIfWVXhpLtjWjvkMW_95Ul-Q&usqp=CAc" alt="Card image cap">
+            <div class="card-body">
+                <h5 class="card-title">Card titl</h5>
+                <p class="card-text">This</p>
+            </div>
+        </div>
+        <div class="col-2">
+            <img class="card-img-top" src="https://encrypted-tbn1.gstatic.com/shopping?q=tbn:ANd9GcQyFwA9YXqckpcWXqQgsl6RiMNQOdxrWYYIGQv2tJLzoQoPMC2ncFaNXxtjkfEl0qK7z8CnjKl14aWNRuHMMcxfFw5GF0NShkFzIWvtDbCtF4dwMtc5V79VWeRsCtrJyBNIGyDsIQ&usqp=CAc">
+            <div class="card-body">
+                <h5 class="card-title">Card title</h5>
+                <p class="card-text">This.</p>
+            </div>
+        </div>
+        <div class="col-2">
+            <img class="card-img-top" src="https://img.sonyunara.com/files/goods/500915/1_65c4735bdda3f_3.png.webp">
+            <div class="card-body">
+                <h5 class="card-title">Card title</h5>
+                <p class="card-text">This.</p>
+            </div>
+        </div>
+        <div class="col-2">
+            <img class="card-img-top" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQH-F8BdFhWI6woUwoIwz3qt0mTZgaEG7tpbiKHA4KrPp65FYvO4zG_sg-YyPKJIY9jUWU&usqp=CAU">
+            <div class="card-body">
+                <h5 class="card-title">Card title</h5>
+                <p class="card-text">This </p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="wrap">
+    <div class="row">
+        <div class="col-2">
+            <img class="card-img-top" src="https://encrypted-tbn0.gstatic.com/shopping?q=tbn:ANd9GcT8jjvGMMarLmBNWfCAzuwnaRGnV061kjqp21RXzuNysg6ZWMXZwyl814d6gU9ObN07x2Y-dFs6ZXqCvZU-xXV5IvNr8DzTMjIaY56RFlvTbpoWcc5WaVQJaoHtlMWgGXxq7mLPZXww&usqp=CAc">
+            <div class="card-body">
+                <h5 class="card-title">Card title</h5>
+                <p class="card-text">This.</p>
+            </div>
+        </div>
+        <div class="col-2">
+            <img class="card-img-top" src="https://encrypted-tbn1.gstatic.com/shopping?q=tbn:ANd9GcTYjBKGobULJ7BTgIjIicXptWZ8hM7l1dmkVpv1qp1bv5giIjLd7V4_RU9q7oWsqxEwEBIbn2l6MxTNmxKKUYDSB1DNkn1kIfCg-gEthOpC7BhmDdlCSTXOvk9OYMqpJFYehOjRD0s&usqp=CAc">
+            <div class="card-body">
+                <h5 class="card-title">Card title</h5>
+                <p class="card-text">This.</p>
+            </div>
+        </div>
+        <div class="col-2">
+            <img class="card-img-top" src="https://img1.shopcider.com/product/1636534540000-SfwwtD.jpg?x-oss-process=image/resize,w_1050,m_lfit/quality,Q_60/interlace,1" alt="Card image cap">
+            <div class="card-body">
+                <h5 class="card-title">Card titlee</h5>
+                <p class="card-text">This.</p>
+            </div>
+        </div>
+        <div class="col-2">
+            <img class="card-img-top" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSsvZG2GPIpmD3iO-zYzT3d7ExzDUiP8pet7s0DSGIYLjKlrMqHc3zgpXZLyNId7m-ULK8&usqp=CAU" alt="Card image cap">
+            <div class="card-body">
+                <h5 class="card-title">Card title</h5>
+                <p class="card-text">This </p>
+            </div>
+        </div>
+        <div class="col-2">
+            <img class="card-img-top" src="https://img1.shopcider.com/product/1666062055000-R6hzra.jpg" alt="Card image cap">
+            <div class="card-body">
+                <h5 class="card-title">Card titlee</h5>
+                <p class="card-text">This</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+</body>
+
+</html>
